@@ -27,9 +27,7 @@ def call(String buildStatus = 'STARTED') {
   }
 
   // Send notifications
-  slackSend (channel: '#work-test', color: colorCode, message: summary)
-
-  hipchatSend (color: color, notify: true, message: summary)
+  slackSend (channel: '#work-test', color: colorCode, subject: message)
 
   emailext (
       to: 'vijay45kmar@gmail.com',
