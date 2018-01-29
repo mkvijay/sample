@@ -3,12 +3,12 @@ def call(Map parameters = [:]) {
   echo 'approval parameters: ' + parameters
   
   def slack_channel = parameters.get('slack_channel')
-  def buildStatus = currentBuild.result
   def slack_color = 'GREEN'
   def color_code = '#00FF00'
   def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
   def summary = "${subject} (${env.BUILD_URL})"
-  
+ 
+  buildStatus = currentBuild.result
    // Override default values based on build status
   if (buildStatus == 'STARTED') {
     color = 'YELLOW'
