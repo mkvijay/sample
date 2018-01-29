@@ -8,8 +8,9 @@ def call(Map parameters = [:]) {
   def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
   def summary = "${subject} (${env.BUILD_URL})"
  
-  buildStatus = currentBuild.result
-   // Override default values based on build status
+  // Override default values based on build status
+  
+  buildStatus =  buildStatus ?: 'SUCCESSFUL'   
   if (buildStatus == 'STARTED') {
     color = 'YELLOW'
     colorCode = '#FFFF00'
