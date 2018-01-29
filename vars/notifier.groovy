@@ -28,11 +28,4 @@ def call(String buildStatus = 'STARTED') {
 
   // Send notifications
   slackSend (channel: '#work-test', color: colorCode, subject: message)
-
-  emailext (
-      to: 'vijay45kmar@gmail.com',
-      subject: subject,
-      body:message, 
-      recipientProviders: [[$class: 'DevelopersRecipientProvider']]
-    )
 }
