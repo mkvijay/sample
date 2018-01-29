@@ -2,7 +2,7 @@
 def call(Map parameters = [:]) {
   echo 'approval parameters: ' + parameters
   
-  def buildStatus =  buildStatus ?: 'SUCCESSFUL'
+  def buildStatus = parameters.get('buildStatus')
   def slack_color = 'GREEN'
   def color_code = '#00FF00'
   def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
