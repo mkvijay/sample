@@ -1,0 +1,39 @@
+#!/usr/bin/groovy
+def call(Map parameters = [:]) {
+    echo 'requestApprovalForDeploy parameters: ' + parameters
+
+    def environment = parameters.get('environment')
+    def time = parameters.get('time', 5)
+    def unit = parameters.get('unit', 'DAYS')
+    def slack_channel = parameters.get('slack_channel')
+    def email = parameters.get('email')
+
+    if (slack_channel != null) {
+        slackSend(channel: slack_channel, color: '#00FF00', message: "${env.JOB_NAME} is waiting for approval for deployment to ${environment}: (${env.JENKINS_URL}/job/${env.JOB_NAME})")
+    }
+
+    if (email != null) {
+        emailext (
+            to: email,
+            subject: "APPROVAL REQUIRED: ${env.JOB_NAME} ${environment} Deploy",
+            body: """${env.JOB_NAME} is ready for deployment to ${environment}.\nPlease approve this deployment:\n${env.BUILD_URL}""",
+            recipientProviders: [[$class: 'DevelopersRecipientProvider']],
+            replyTo: 'no.reply.jenkins@corp.local'
+        )
+    }
+
+    def approver = ''
+
+    timeout(time: time, unit: unit) {
+        approver = input submitterParameter: 'submitter', message: "Approve deploy to ${environment}", ok: 'Deploy'
+    }
+
+    // Track the approval in the original Jira ticktes.
+    jiraIssues = jiraIssueSelector(issueSelector: [$class: 'DefaultIssueSelector'])
+    for (String issue : jiraIssues) {
+        jiraComment(
+            issueKey: "${issue}",
+            body: approver + " has approved deployment of ${env.JOB_NAME} commit ${env.shortCommit} to ${environment}"
+        )
+    }
+}
