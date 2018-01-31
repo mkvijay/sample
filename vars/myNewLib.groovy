@@ -9,6 +9,6 @@ def call(Map parameters = [:]) {
   def message = parameters.get('message')
   def build_status = parameters.get('build_status')
 
-  if (buildStatus == 'SUCCESS') {
+  if (buildStatus != null) {
   slackSend (channel: slack_channel, subject: "${env.service} Pipeline Notification" )
 }
