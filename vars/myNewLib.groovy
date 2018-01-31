@@ -9,7 +9,7 @@ def call(Map parameters = [:]) {
   def message = parameters.get('message')
   def build_status = currentBuild.currentResult
   
-  if (build_status == 'SUCCESS') {
+  if (build_status == null) {
     color = 'GREEN'
     colorCode = '#00FF00'
   } else {
