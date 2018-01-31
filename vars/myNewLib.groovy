@@ -7,7 +7,7 @@ def call(Map parameters = [:]) {
   def slack_channel = parameters.get('slack_channel')
   def email = parameters.get('email')
   def message = parameters.get('message')
-  def build_status = currentBuild.result
+  def build_status = parameters.get('build_status')
   
   if (build_status != null) {
     color = 'GREEN'
