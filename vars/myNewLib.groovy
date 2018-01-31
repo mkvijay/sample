@@ -9,7 +9,12 @@ def call(Map parameters = [:]) {
   def message = parameters.get('message')
   def build_status = parameters.get('build_status')
 
-  if (build_status != null) {
-      slackSend (channel: slack_channel, subject: "${env.service} Pipeline Notification" )
+  if (buildStatus == 'SUCCESS') {
+    color = 'GREEN'
+    colorCode = '#00FF00'
+  } else {
+    color = 'RED'
+    colorCode = '#FF0000'
   }
+  slackSend (channel: slack_channel, subject: "${env.service} Pipeline Notification" )
 }
