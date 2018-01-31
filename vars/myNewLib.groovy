@@ -11,4 +11,5 @@ def call(Map parameters = [:]) {
 
   if (build_status != null) {
   slackSend (channel: slack_channel, subject: "${env.service} Pipeline Notification" )
+  }
 }
