@@ -10,11 +10,5 @@ def call(Map parameters = [:]) {
   def build_status = currentBuild.currentResult
 
   if (buildStatus == 'SUCCESS') {
-    color = 'GREEN'
-    colorCode = '#00FF00'
-  } else {
-    color = 'RED'
-    colorCode = '#FF0000'
-  }
   slackSend (channel: slack_channel, subject: "${env.service} Pipeline Notification" )
 }
