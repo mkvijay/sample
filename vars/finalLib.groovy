@@ -6,10 +6,11 @@ def call(Map parameters = [:]) {
   def environment = parameters.get('environment')
   def slack_channel = parameters.get('slack_channel')
   def email = parameters.get('email')
+  def color = parameters.get('color')
   def message = parameters.get('message')
   
   if (slack_channel != null) {
-  slackSend (channel: slack_channel, message: "testing slack ${env.BUILD_URL}", subject: "${env.service} Pipeline Notification" )
+  slackSend (channel: slack_channel, email: email, color: color, message: "testing slack ${env.BUILD_URL}", subject: "${env.service} Pipeline Notification" )
   }
   if (email != null) {
       emailext (
