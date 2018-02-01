@@ -6,6 +6,7 @@ def call(Map parameters = [:]) {
   def environment = parameters.get('environment')
   def slack_channel = parameters.get('slack_channel')
   def email = parameters.get('email')
+  def color = parameters.get('color')
   def message = parameters.get('message')
   def build_status = parameters.get('build_status')
   
@@ -16,7 +17,7 @@ def call(Map parameters = [:]) {
     color = 'RED'
     colorCode = '#FF0000'
   }
-  slackSend (channel: slack_channel, message: message, subject: "${env.service} Pipeline Notification" )
+  slackSend (channel: slack_channel, email: email, color: color, message: message subject: subject )
   if (email != null) {
       emailext (
         to: email,
