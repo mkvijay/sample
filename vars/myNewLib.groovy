@@ -9,8 +9,8 @@ def call(Map parameters = [:]) {
   def message = parameters.get('message')
   def subject = parameters.get('subject')
   
-  if(slack_cahnnel != null){
-      slackSend (channel: slack_channel, email: email, color: color, message: message subject: subject )
+  if(slack_cahnnel != null) {
+  slackSend (channel: slack_channel, email: email, color: color, message: message subject: subject )
   }
   if (email != null) {
       emailext (
