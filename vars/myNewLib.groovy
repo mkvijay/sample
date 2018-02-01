@@ -1,6 +1,5 @@
 #!usr/bin/groovy
 def call(Map parameters = [:]) {
-  // build status of null means successful
   echo 'myNewLib parameters: ' + parameters
 
   def environment = parameters.get('environment')
@@ -9,16 +8,10 @@ def call(Map parameters = [:]) {
   def color = parameters.get('color')
   def message = parameters.get('message')
   def subject = parameters.get('subject')
-  def build_status = parameters.get('build_status')
   
-  if (build_status != null) {
-    color = 'GREEN'
-    colorCode = '#00FF00'
-  } else {
-    color = 'RED'
-    colorCode = '#FF0000'
+  if(slack_cahnnel != null){
+      slackSend (channel: slack_channel, email: email, color: color, message: message subject: subject )
   }
-  slackSend (channel: slack_channel, email: email, color: color, message: message subject: subject )
   if (email != null) {
       emailext (
         to: email,
