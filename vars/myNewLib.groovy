@@ -8,6 +8,7 @@ def call(Map parameters = [:]) {
   def email = parameters.get('email')
   def color = parameters.get('color')
   def message = parameters.get('message')
+  def subject = parameters.get('subject')
   def build_status = parameters.get('build_status')
   
   if (build_status != null) {
