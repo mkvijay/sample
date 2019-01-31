@@ -4,4 +4,5 @@ to check jenkins logs, var/log/jenkins is the jenkins home directory,
 
 kn;kn;ln;'kn;
 under manage jenkins you will see system logs
+vcstrigger
 checking the  multiple vcs triggers in teamcity
